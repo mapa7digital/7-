@@ -1,0 +1,223 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0b0d0f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+canvas {
+    display: block;
+}
+
+:root {
+    --accent: #7fd6c2;
+    --accent-dark: #4fae99;
+    --panel-bg: rgba(12, 14, 16, 0.92);
+}
+
+/* ---------- Info e loading ---------- */
+#info {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    z-index: 10;
+    pointer-events: none;
+    max-width: 70vw;
+}
+
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* ---------- Aviso de RA não suportada ---------- */
+#ar-warning {
+    display: none;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 90vw;
+    background: rgba(120, 50, 40, 0.85);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    text-align: center;
+    z-index: 10;
+}
+
+/* ---------- Botão de RA + link do marcador Hiro (AR.js) ---------- */
+#ar-button-container {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#ar-button-container #ar-button {
+    background: var(--accent) !important;
+    color: #0b0d0f !important;
+    border: none !important;
+    border-radius: 999px !important;
+    padding: 12px 28px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    letter-spacing: 0.02em;
+    box-shadow: 0 6px 18px rgba(127, 214, 194, 0.35);
+    cursor: pointer;
+}
+
+#ar-marker-link {
+    color: var(--accent);
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#ar-marker-link:hover {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+/* ---------- Botão flutuante "Abrir no celular" ---------- */
+#qr-toggle {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    padding: 9px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+#qr-toggle:hover {
+    background: rgba(0, 0, 0, 0.75);
+    border-color: var(--accent);
+}
+
+.qr-toggle-icon {
+    font-size: 15px;
+    color: var(--accent);
+}
+
+/* ---------- Painel de QR Code ---------- */
+#qr-panel {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+}
+
+#qr-panel.open {
+    display: flex;
+}
+
+.qr-card {
+    position: relative;
+    background: var(--panel-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 28px 26px 24px;
+    max-width: 320px;
+    width: 88vw;
+    text-align: center;
+    color: #fff;
+}
+
+.qr-card h2 {
+    font-size: 17px;
+    margin-bottom: 8px;
+}
+
+.qr-card p {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+#qrcode {
+    display: flex;
+    justify-content: center;
+    margin: 14px 0;
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.qr-url {
+    word-break: break-all;
+    font-size: 11px !important;
+    color: var(--accent) !important;
+}
+
+.qr-note {
+    font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    margin-top: 10px !important;
+}
+
+#qr-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#qr-close:hover {
+    color: #fff;
+}
+
+/* ---------- Responsividade ---------- */
+@media (max-width: 480px) {
+    #qr-toggle span:last-child {
+        display: none;
+    }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Quati AR — Visualizador 3D e Realidade Aumentada</title>
+    <link rel="stylesheet" type="text/css" href="sla.css">
+
+    <!-- Importmap: resolve os imports "nus" (from 'three') para URLs reais de CDN -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+            "threex": "https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@master/three.js/build/ar-threex.mjs"
+        }
+    }
+    </script>
+
+    <!-- Biblioteca leve de geração de QR Code (client-side) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div id="info">Quati 3D — arraste para girar, scroll para zoom</div>
+    <div id="loading">Carregando modelo... 0%</div>
+
+    <!-- Aviso exibido quando o dispositivo/navegador não permite acesso à câmera -->
+    <div id="ar-warning"></div>
+
+    <!-- O botão "Ver em RA" e o link do marcador Hiro (AR.js) são injetados aqui via JS -->
+    <div id="ar-button-container"></div>
+
+    <!-- Botão flutuante para abrir o painel de QR Code -->
+    <button id="qr-toggle" aria-label="Mostrar QR Code de acesso">
+        <span class="qr-toggle-icon">▦</span>
+        <span>Abrir no celular</span>
+    </button>
+
+    <!-- Painel com o QR Code apontando para esta mesma página -->
+    <div id="qr-panel">
+        <div class="qr-card">
+            <button id="qr-close" aria-label="Fechar">×</button>
+            <h2>Escaneie para abrir no celular</h2>
+            <p>Aponte a câmera do seu smartphone para o QR Code. No Android, use o Chrome para acessar a Realidade Aumentada.</p>
+            <div id="qrcode"></div>
+            <p id="qr-url" class="qr-url"></p>
+            <p class="qr-note">A página precisa estar hospedada em HTTPS (ou aberta via localhost) para a câmera funcionar. Na RA, aponte a câmera para o marcador Hiro (tem um link para abri-lo perto do botão "Ver em RA").</p>
+        </div>
+    </div>
+
+    <!-- type="module" é obrigatório porque app.js usa import/export -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
